@@ -77,14 +77,14 @@ export function LeftSidebar() {
             }
 
             const href =
-              item.text === 'Profile' ? `/profile/${user?.uid}` : item.href;
+              item.text === 'Profile' && user ? `/profile/${user.uid}` : item.href;
             const isNotifications = item.text === 'Notifications';
 
             return (
               <Link
                 key={item.text}
                 href={href}
-                className="group flex items-center gap-4 rounded-full px-4 py-3 text-lg font-medium transition-colors hover:bg-accent/50"
+                className="group flex items-center gap-4 rounded-full px-4 py-3 text-lg transition-colors hover:bg-accent hover:text-accent-foreground"
               >
                 <div className="relative">
                   <item.icon className="h-6 w-6" />
@@ -94,18 +94,20 @@ export function LeftSidebar() {
                     </Badge>
                   )}
                 </div>
-                <span className="font-sans">{item.text}</span>
+                <span className="font-sans font-medium">{item.text}</span>
               </Link>
             );
           })}
         </nav>
-        <CreatePostDialog
-          trigger={
-            <Button className="mt-4 w-full rounded-full py-6 text-lg">
-              <PenSquare className="mr-2 h-5 w-5" /> Post
-            </Button>
-          }
-        />
+        <div className='px-4 mt-4'>
+            <CreatePostDialog
+            trigger={
+                <Button className="w-full rounded-full py-6 text-lg font-bold">
+                <PenSquare className="mr-2 h-5 w-5" /> Post
+                </Button>
+            }
+            />
+        </div>
       </div>
       <div className="p-4">
         {user && fullProfile && (
@@ -113,7 +115,7 @@ export function LeftSidebar() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="flex h-auto w-full items-center justify-between rounded-full p-2 text-left hover:bg-accent/50"
+                className="flex h-auto w-full items-center justify-between rounded-full p-2 text-left hover:bg-accent"
               >
                 <div className="flex items-center gap-2">
                   <UserAvatar user={fullProfile} className="h-10 w-10" />
